@@ -178,7 +178,9 @@ class AVLTreeList(object):
 
 		def recorsion(self,i,h):
 			if h==0:
-
+				return None
+			return None
+		return None
 
 
 
@@ -214,7 +216,7 @@ class AVLTreeList(object):
 		if i==self.length-1:
 			self.last=val
 		pointer=self.insertRec(i.self.root)
-		self.rotation(pointer)
+		self.rotation(pointer) ##not done yet, see bellow
 
 
 		##recieves the root of the tree, locates the index i and inserts
