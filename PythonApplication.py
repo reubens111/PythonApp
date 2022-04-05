@@ -8,20 +8,26 @@
 
 """A class represnting a node in an AVL tree"""
 
+from typing import ValuesView
+
+
 class AVLNode(object):
 	"""Constructor, you are allowed to add more fields. 
 
 	@type value: str
 	@param value: data of your node
 	"""
-	def __init__(self, value):
+	def __init__(self, value=None,left=None,right=None,parent=None,height=-1,size=1,index=-1):
 		self.value = value
-		self.left = None
-		self.right = None
-		self.parent = None
-		self.height = -1
-		self.size = 1 ##maybe should be 0
+		self.left = left
+		self.right = right
+		self.parent = parent
+		self.height = height
+		self.size = index ##maybe should be 0
+		self.index=index ##the index of the item in the list
 		
+	
+
 
 	"""returns the left child
 	@rtype: AVLNode
@@ -149,11 +155,11 @@ class AVLTreeList(object):
 
 	"""finds the height of a given index i"""
 	def findHForI (self, i):
-		if(i=0):
+		if i==0:
 			return 0
 		h=1
 		while (True):
-			lim= math.pow(2,h+1)-2
+			lim= pow(2,h+1)-2
 			if(i<=2):
 				return h
 			h=h+1
@@ -187,8 +193,8 @@ class AVLTreeList(object):
 				i = i - pointer.left.size - 1
 			else:
 				pointer = pointer.left
-		return pointer.getValue
-	"""
+		return pointer.getValue"""
+	    
 
 	"""inserts val at position i in the list
 
@@ -201,16 +207,41 @@ class AVLTreeList(object):
 	@returns: the number of rebalancing operation due to AVL rebalancing
 	"""
 
-	
-
 
 	def insert(self, i, val):
-		if self.first==None:
+		if i==0:
+			self.first=val
+		if i==self.length-1:
+			self.last=val
+		pointer=self.insertRec(i.self.root)
+		self.rotation(pointer)
+
+
+		##recieves the root of the tree, locates the index i and inserts
+		## the val to its value,if the index doesnt exists in the tree, it creates a new
+		#node and inserts it to the tree, returns the pointer to the new node
+		##uses recortion
+		def insertRec(self,i,pointer):
+			if i==pointer.getIndex:
+				pointer.setValue(val)
+				return pointer
+			if i>pointer.getIndex():
+				if pointer.getRight().isRealNode()==False:
+					node=AVLNode(val,None,None,pointer,pointer.getHeight()+1,1,i)
+					pointer.setRight(node)
+					return pointer.getRight()
+				return insertRec(self,i,pointer.getRight())
+			if pointer.getLeft().isRealNode()==False:
+				node=AVLNode(val,None,None,pointer,pointer.getHeight()+1,1,i)
+				pointer.setLeft(node)
+				return pointer.getLeft()
+			return insertRec(self,i,pointer.getLeft())
 
 
 
 
 	def rotation (self,pointer):
+		return i
 
 
 
