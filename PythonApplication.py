@@ -1,6 +1,6 @@
 #username - complete info
-#id1      - 209339704 
-#name1    - Gal Reubens 
+#id1      - complete info 
+#name1    - complete info 
 #id2      - complete info
 #name2    - complete info  
 
@@ -8,26 +8,20 @@
 
 """A class represnting a node in an AVL tree"""
 
-from typing import ValuesView
-
-
 class AVLNode(object):
 	"""Constructor, you are allowed to add more fields. 
 
 	@type value: str
 	@param value: data of your node
 	"""
-	def __init__(self, value=None,left=None,right=None,parent=None,height=-1,size=1,index=-1):
+	def __init__(self, value):
 		self.value = value
-		self.left = left
-		self.right = right
-		self.parent = parent
-		self.height = height
-		self.size = index ##maybe should be 0
-		self.index=index ##the index of the item in the list
+		self.left = None
+		self.right = None
+		self.parent = None
+		self.height = -1
+		self.size = 1 ##maybe should be 0
 		
-	
-
 
 	"""returns the left child
 	@rtype: AVLNode
@@ -133,8 +127,8 @@ class AVLTreeList(object):
 	Constructor, you are allowed to add more fields.  
 
 	"""
-	def __init__(self):
-		self.root = None
+	def __init__(self,root=None):
+		self.root = root
 		self.first = None
 		self.last = None
 		self.length = 0
@@ -155,14 +149,16 @@ class AVLTreeList(object):
 
 	"""finds the height of a given index i"""
 	def findHForI (self, i):
-		if i==0:
+		if(i=0):
 			return 0
 		h=1
 		while (True):
-			lim= pow(2,h+1)-2
+			lim= math.pow(2,h+1)-2
 			if(i<=2):
 				return h
 			h=h+1
+
+
 
 
 	"""retrieves the value of the i'th item in the list
@@ -178,9 +174,7 @@ class AVLTreeList(object):
 
 		def recorsion(self,i,h):
 			if h==0:
-				return None
-			return None
-		return None
+
 
 
 
@@ -195,8 +189,8 @@ class AVLTreeList(object):
 				i = i - pointer.left.size - 1
 			else:
 				pointer = pointer.left
-		return pointer.getValue"""
-	    
+		return pointer.getValue
+	"""
 
 	"""inserts val at position i in the list
 
@@ -209,41 +203,16 @@ class AVLTreeList(object):
 	@returns: the number of rebalancing operation due to AVL rebalancing
 	"""
 
+	
+
 
 	def insert(self, i, val):
-		if i==0:
-			self.first=val
-		if i==self.length-1:
-			self.last=val
-		pointer=self.insertRec(i.self.root)
-		self.rotation(pointer) ##not done yet, see bellow
-
-
-		##recieves the root of the tree, locates the index i and inserts
-		## the val to its value,if the index doesnt exists in the tree, it creates a new
-		#node and inserts it to the tree, returns the pointer to the new node
-		##uses recortion
-		def insertRec(self,i,pointer):
-			if i==pointer.getIndex:
-				pointer.setValue(val)
-				return pointer
-			if i>pointer.getIndex():
-				if pointer.getRight().isRealNode()==False:
-					node=AVLNode(val,None,None,pointer,pointer.getHeight()+1,1,i)
-					pointer.setRight(node)
-					return pointer.getRight()
-				return insertRec(self,i,pointer.getRight())
-			if pointer.getLeft().isRealNode()==False:
-				node=AVLNode(val,None,None,pointer,pointer.getHeight()+1,1,i)
-				pointer.setLeft(node)
-				return pointer.getLeft()
-			return insertRec(self,i,pointer.getLeft())
+		if self.first==None:
 
 
 
 
 	def rotation (self,pointer):
-		return i
 
 
 
@@ -350,3 +319,37 @@ class AVLTreeList(object):
 		return self.root
 
 
+
+
+
+
+
+
+
+
+
+class Tester (object):
+	def __init__(self):
+		##add methods
+		return
+
+	##creates a random node with a value between min and max
+	def CN(min,max):
+		return AVLNode(random.randint(min,max))
+
+	##tester for the first question
+	#i is the size of the tree (n=1000*2^i)
+	##return the amount of rotation that were done while inserting all
+	## the nodes
+	def createTree (i):
+		
+		min=-10000000
+		max=10000000
+		root=self.CN(min,max)
+		root=AVLTreeList(root)
+		cnt=0
+
+		for x in range(1000*pow(2,i)):
+			cnt+=root.insert(self.CN(min,max))
+
+		return cnt
