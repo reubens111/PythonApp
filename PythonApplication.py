@@ -6,6 +6,8 @@
 
 """Questions:
 if we delete a node, oes the indexs of his succesors reduce by one?
+we need to update the first and last field with every insert/delete
+TODO: listToArray, split, concat
 
 
 """
@@ -255,7 +257,7 @@ class AVLTreeList(object):
 				else:
 					i = i - a.right.size -1
 					a = a.right
-		
+		return -1
 
 
 
