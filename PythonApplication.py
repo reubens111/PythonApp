@@ -4,9 +4,11 @@
 #id2      - complete info
 #name2    - complete info  
 
-##search, delete
-# pre, type etc
+"""Questions:
+if we delete a node, oes the indexs of his succesors reduce by one?
 
+
+"""
 """A class represnting a node in an AVL tree"""
 
 from hashlib import new
@@ -33,13 +35,19 @@ class AVLNode(object):
 		self.index=index
 
 
+	"""returns the index
+	@rtype: int
+	@returns: the index or -1 if the node is not yet in the tree
+	"""
+	def getIndex(self):
+		return self.index
+
+
 	"""returns the left child
 	@rtype: AVLNode
 	@returns: the left child of self, None if there is no left child
 	"""
 	def getLeft(self):
-		if self.left == None:
-			return None
 		return self.left
 
 
@@ -49,8 +57,6 @@ class AVLNode(object):
 	@returns: the right child of self, None if there is no right child
 	"""
 	def getRight(self):
-		if self.right == None:
-			return None
 		return self.right
 
 	"""returns the parent 
@@ -277,7 +283,7 @@ class AVLTreeList(object):
 	def insert(self, i, val):
 
 			counter = 0
-			newNode = AVLNode(val, None, None, None, -1, -1, -1)
+			newNode = AVLNode(val, None, None, None, -1, -1, -1,i)
 			newVirtualLeft = AVLNode(-1, None, None, None, -1, 0, -1)
 			newVirtualRight = AVLNode(-1, None, None, None, -1, 0, -1)
 
@@ -385,13 +391,10 @@ class AVLTreeList(object):
 			
 
 		#case: node is not a leaf
-		return self.deleteNodet()
-
-		
+		return self.deleteNode(node)
 
 
-		
-	
+	##deletes the given node from the tree with balancing
 	def deleteNode(self,node):
 		nxt=self.succesor(node)
 		balance=nxt.getRight()
@@ -419,12 +422,8 @@ class AVLTreeList(object):
 			
 
 
-
-	
-
-
 	##checks if the node is a leaf
-	##if it is, it deletes it
+	##if it is, it deletes it without balancing
 	def nodeLeafCase(self,node):
 		if node.right.isRealNode()==False and node.left.isRealNode()==False:
 			if node.parent.right==node:
@@ -433,6 +432,8 @@ class AVLTreeList(object):
 			node.parent.left=self.newVirtualNode()
 			return True
 		return False
+
+
 
 	##balances the given node
 	##returns the number of rotation that were done
@@ -547,12 +548,29 @@ class AVLTreeList(object):
 	@returns: the first index that contains val, -1 if not found.
 	"""
 	def search(self, val):
-		a = self.first
-		index = 1
-		for  i in range(self.root.size):
-			if self.retrieve(index) == val:
-				return index
-		return -1
+
+		return self.searchI(val,self.root)
+		
+
+		#uses recurssion to find the first index with val
+		def searchI(self,val,node):
+
+			if node.isRealNode()==False:
+				return -1
+
+			i=self.searchI(val,node.getLeft())
+			if i!=-1:
+				return i
+
+			if val==node.getValue():
+				return node.getIndex()
+			
+			i=self.searchI(val,node.getRight())
+
+			return -1
+
+
+
 
 
 	"""returns the root of the tree representing the list
