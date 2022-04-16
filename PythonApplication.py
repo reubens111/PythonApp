@@ -572,11 +572,36 @@ class AVLTreeList(object):
 	@param i: The intended index in the list according to whom we split
 	@rtype: list
 	@returns: a list [left, val, right], where left is an AVLTreeList representing the list until index i-1,
-	right is an AVLTreeList representing the list from index i+1, and val is the value at the i'th index.
+	right is an AVLTreeList representing
+   the list from index i+1, and val is the value at the i'th index.
 	"""
 	def split(self, i):
-		return None
 
+		left=AVLTreeList()
+		right=AVLTreeList()
+		root=None
+
+		root,left,right=self.splitRec(self.root,left,right,i)
+		root.setRight(right)
+		root.setLeft(left)
+
+		return root
+			
+	def splitRec(self,root,left,right,i):
+		
+		if i==root.getLeft().getSize()+1: ##case: root id the i item
+			root.getLeft().concat(left)
+			return root,left,right
+
+
+		if i<root.getLeft.getSize()+1: #case: root is bigger than i
+			return self.concat(self.splitRec(root.getLeft(),left,right,i))
+
+		return self.concat(self.splitRec(root.getRight(),left,right,i-root.getLeft.getSize-1))
+
+
+
+		a
 	"""concatenates lst to self
 
 	@type lst: AVLTreeList
